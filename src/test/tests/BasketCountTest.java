@@ -3,10 +3,8 @@ package test.tests;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import test.elements.Header;
-import test.enums.catalog.LeftMenuEnum;
-import test.enums.catalog.RightMenuEnum;
-import test.pages.CartPage;
-import test.pages.ProductPage;
+import test.enums.catalog.CatalogLeftMenuEnum;
+import test.enums.catalog.CatalogRightMenuEnum;
 
 import static com.codeborne.selenide.Selenide.open;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -30,8 +28,8 @@ public class BasketCountTest extends BaseTest {
 
         open("");
         header.clickCatalog()
-                .moveOnLeftMenu(LeftMenuEnum.СУМКИ_И_ЧЕМОДАНЫ.getName())
-                .clickRightMenu(RightMenuEnum.РЮКЗАКИ.getName())
+                .moveOnLeftMenu(CatalogLeftMenuEnum.СУМКИ_И_ЧЕМОДАНЫ.getName())
+                .clickRightMenu(CatalogRightMenuEnum.РЮКЗАКИ.getName())
                 .findAndClick(productName)
                 .addToCart();
         Thread.sleep(3000); // TODO убрать слип, заменить на ожидание
@@ -47,20 +45,20 @@ public class BasketCountTest extends BaseTest {
 
         open("");
         header.clickCatalog()
-                .moveOnLeftMenu(LeftMenuEnum.СУМКИ_И_ЧЕМОДАНЫ.getName())
-                .clickRightMenu(RightMenuEnum.РЮКЗАКИ.getName())
+                .moveOnLeftMenu(CatalogLeftMenuEnum.СУМКИ_И_ЧЕМОДАНЫ.getName())
+                .clickRightMenu(CatalogRightMenuEnum.РЮКЗАКИ.getName())
                 .findAndClick(productNameOne)
                 .addToCart();
         Thread.sleep(3000); // TODO убрать слип, заменить на ожидание
         header.clickCatalog()
-                .moveOnLeftMenu(LeftMenuEnum.АКСЕССУАРЫ.getName())
-                .clickRightMenu(RightMenuEnum.ЧАСЫ.getName())
+                .moveOnLeftMenu(CatalogLeftMenuEnum.АКСЕССУАРЫ.getName())
+                .clickRightMenu(CatalogRightMenuEnum.ЧАСЫ.getName())
                 .findAndClick(productNameTwo)
                 .addToCart();
         Thread.sleep(3000); // TODO убрать слип, заменить на ожидание
         header.clickCatalog()
-                .moveOnLeftMenu(LeftMenuEnum.МУЖЧИНАМ.getName())
-                .clickRightMenu(RightMenuEnum.ШОРТЫ.getName())
+                .moveOnLeftMenu(CatalogLeftMenuEnum.МУЖЧИНАМ.getName())
+                .clickRightMenu(CatalogRightMenuEnum.ШОРТЫ.getName())
                 .findAndClick(productNameThree)
                 .addToCart();
         Thread.sleep(3000); // TODO убрать слип, заменить на ожидание

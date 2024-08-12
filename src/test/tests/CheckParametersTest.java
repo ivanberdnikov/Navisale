@@ -3,9 +3,9 @@ package test.tests;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import test.elements.Header;
-import test.enums.catalog.LeftMenuEnum;
-import test.enums.catalog.RightMenuEnum;
-import test.enums.product.SizeEnum;
+import test.enums.catalog.CatalogLeftMenuEnum;
+import test.enums.catalog.CatalogRightMenuEnum;
+import test.enums.product.ProductSizeEnum;
 import test.pages.CartPage;
 import test.pages.ProductPage;
 
@@ -13,11 +13,7 @@ import static com.codeborne.selenide.Selenide.open;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
- * Проверка названия и цены товара на странице заказа и в корзине
- * <p>
- * checkNameAndPriceTest:
- * Проверяем, что название товара на странице товара равно названию товара в корзине
- * Проверяем, что цена товара на странице товара равна цене товара в корзине
+ * Проверка названия, цены, размера, цвета и количества товара на странице заказа и в корзине
  */
 
 public class CheckParametersTest extends BaseTest {
@@ -26,24 +22,47 @@ public class CheckParametersTest extends BaseTest {
     CartPage cartPage = new CartPage();
 
     @Test
-    @DisplayName("Проверка названия и цены товара на странице заказа и в корзине")
-    public void checkNameAndPriceTest() throws InterruptedException {
+    @DisplayName("Проверка названия, цены, размера, цвета и количества товара на странице заказа и в корзине")
+    public void checkNamePriceSizeColorTest() throws InterruptedException {
         String productName = "Lifestyle Women Vest Kadın Siyah Yelek Wnv3229-bk";
-        String priceOnProductPage;
-        String priceOnCartPage;
+        String nameOnProductPage,
+                priceOnProductPage,
+                sizeOnProductPage,
+                colorOnProductPage,
+                countOnProductPage,
+                nameOnCartPage,
+                priceOnCartPage,
+                sizeOnCartPage,
+                colorOnCartPage,
+                countOnCartPage;
 
         open("");
         header.clickCatalog()
-                .moveOnLeftMenu(LeftMenuEnum.ЖЕНЩИНАМ.getName())
-                .clickRightMenu(RightMenuEnum.ЖИЛЕТЫ.getName())
+                .moveOnLeftMenu(CatalogLeftMenuEnum.ЖЕНЩИНАМ.getName())
+                .clickRightMenu(CatalogRightMenuEnum.ЖИЛЕТЫ.getName())
                 .findAndClick(productName)
-                .selectSize(SizeEnum.L.getName())
+                .selectSize(ProductSizeEnum.L.getName())
                 .addToCart();
-        priceOnProductPage = productPage.getPriceOnProductPage();
+
         Thread.sleep(3000); // TODO убрать слип, заменить на ожидание
+        nameOnProductPage = productPage.getNameWithoutColorAndSizeOnProductPage();
+        priceOnProductPage = productPage.getPriceOnProductPage();
+        sizeOnProductPage = productPage.getSizeOnProductPage();
+        colorOnProductPage = productPage.getColorOnProductPage();
+        countOnProductPage = productPage.getCountOnProductPage();
+
         header.clickBasket();
-        assertEquals(productName, cartPage.getNameOnCartPage());
-        priceOnCartPage = cartPage.getPriceOnCartPage();
-        assertEquals(priceOnProductPage, priceOnCartPage.substring(0, priceOnCartPage.length() - 2));
+
+        nameOnCartPage = cartPage.getNameOnCartPage();
+        priceOnCartPage = cartPage.getPriceToDecimalPointOnCartPage();
+        sizeOnCartPage = cartPage.getSizeOnCartPage();
+        colorOnCartPage = cartPage.getColorOnCartPage();
+        countOnCartPage = cartPage.getCountOnCartPage();
+
+        assertEquals(nameOnProductPage, nameOnCartPage);
+        assertEquals(priceOnProductPage, priceOnCartPage);
+        assertEquals(sizeOnProductPage, sizeOnCartPage);
+        assertEquals(colorOnProductPage, colorOnCartPage);
+        assertEquals(countOnProductPage, countOnCartPage);
     }
 }

@@ -2,6 +2,7 @@ package test.pages;
 
 import com.codeborne.selenide.SelenideElement;
 
+import static com.codeborne.selenide.Selectors.byXpath;
 import static com.codeborne.selenide.Selenide.$;
 
 /**
@@ -13,24 +14,32 @@ public class CartPage {
     private final SelenideElement
             price = $(".cart-item-default__price"),
             name = $(".cart-item-default__title"),
-            size = $("//li[@class=\"cart-item-default__props-item\"][1]"),
-            color = $("//li[@class=\"cart-item-default__props-item\"][2]"),
-            count = $("quantity-group__input-wrapper");
+            size = $(byXpath("//li[@class=\"cart-item-default__props-item\"][1]")),
+            color = $(byXpath("//li[@class=\"cart-item-default__props-item\"][2]")),
+            count = $(".quantity-group__number");
 
     public String getNameOnCartPage() {
         return name.getOwnText();
     }
 
     public String getPriceOnCartPage() {
-        return price.getOwnText().replaceAll("[^\\d]", "");
+        return price.getOwnText();
+    }
+
+    public String getPriceToDecimalPointOnCartPage() {
+        String priceToDecimalPoint = getPriceOnCartPage();
+        priceToDecimalPoint = priceToDecimalPoint.substring(0, priceToDecimalPoint.indexOf(",")).replaceAll("[^\\d]", "");
+        return priceToDecimalPoint;
     }
 
     public String getSizeOnCartPage() {
-        return size.getOwnText();
+        String sizeOnCartPage = size.getOwnText();
+        return sizeOnCartPage.substring(sizeOnCartPage.length() - 1);
     }
 
     public String getColorOnCartPage() {
-        return color.getOwnText();
+        String colorOnCartPage = color.getOwnText();
+        return colorOnCartPage.substring(7);
     }
 
     public String getCountOnCartPage() {

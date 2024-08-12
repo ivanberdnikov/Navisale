@@ -4,7 +4,7 @@ package test.enums.product;
  * Enum для размеров на странице продукта
  */
 
-public enum SizeEnum {
+public enum ProductSizeEnum {
     XS("X"),
     S("S"),
     M("M"),
@@ -13,7 +13,7 @@ public enum SizeEnum {
 
     private final String name;
 
-    SizeEnum(String name) {
+    ProductSizeEnum(String name) {
         this.name = name;
     }
 

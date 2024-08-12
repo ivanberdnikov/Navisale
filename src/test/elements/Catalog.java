@@ -29,14 +29,6 @@ public class Catalog {
         return this;
     }
 
-    public Catalog moveOnLeftMenu(String value) throws InterruptedException {
-        SelenideElement menu = leftMenu.findBy(text(value));
-        menu.hover();
-        Thread.sleep(2000); // TODO убрать слип, заменить на ожидание
-
-        return this;
-    }
-
     public CatalogPage clickRightMenu(String value) {
         SelenideElement menu = rightMenu.findBy(text(value));
         menu.click();
@@ -46,6 +38,14 @@ public class Catalog {
 
     public Catalog clickCatalog() {
         catalog.click();
+
+        return this;
+    }
+
+    public Catalog moveOnLeftMenu(String value) throws InterruptedException {
+        SelenideElement menu = leftMenu.findBy(text(value));
+        menu.hover();
+        Thread.sleep(2000); // TODO убрать слип, заменить на ожидание
 
         return this;
     }

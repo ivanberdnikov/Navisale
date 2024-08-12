@@ -4,7 +4,7 @@ package test.enums.catalog;
  * Enum для значений, находящихся в левой стороне Page Elementa Каталог
  */
 
-public enum LeftMenuEnum {
+public enum CatalogLeftMenuEnum {
     МУЖЧИНАМ("Мужчинам"),
     ЖЕНЩИНАМ("Женщинам"),
     ОБУВЬ("Обувь"),
@@ -14,7 +14,7 @@ public enum LeftMenuEnum {
 
     private final String name;
 
-    LeftMenuEnum(String name) {
+    CatalogLeftMenuEnum(String name) {
         this.name = name;
     }
 

@@ -15,20 +15,43 @@ public class ProductPage {
     private final SelenideElement
             name = $("#name"),
             price = $(".price__regular"),
-            cart = $("[data-selector=\"add-to-cart-btn\"]");
+            cart = $("[data-selector=\"add-to-cart-btn\"]"),
+            sizeSelected = $(".options-group__value"),
+            count = $(".quantity-group__number");
 
     private final ElementsCollection
-            size = $$(".options-group__list-item");
+            sizeSelection = $$(".options-group__list-item");
 
     public String getNameOnProductPage() {
         return name.innerText();
     }
 
+    public String getNameWithoutColorAndSizeOnProductPage() {
+        return getNameOnProductPage().substring(0, getNameOnProductPage().indexOf(" Цвет:"));
+    }
+
+    public String getPriceOnProductPage() {
+        return price.getOwnText().replaceAll("[^\\d]", "");
+    }
+
+    public String getSizeOnProductPage() {
+        return sizeSelected.innerText();
+    }
+
+    public String getColorOnProductPage() {
+        return getNameOnProductPage().substring(getNameOnProductPage().indexOf("Цвет:") + 6, getNameOnProductPage().indexOf("Размер:") - 2);
+
+    }
+
+    public String getCountOnProductPage() {
+        return count.innerText();
+    }
+
     public ProductPage selectSize(String value) throws InterruptedException {
-        SelenideElement menu = size.findBy(exactText(value));
-        menu.click();
+        SelenideElement size = sizeSelection.findBy(exactText(value));
+        size.click();
         Thread.sleep(3000); // TODO убрать слип, заменить на ожидание
-        menu.click();
+        size.click();
         Thread.sleep(3000); // TODO убрать слип, заменить на ожидание
         return this;
     }
@@ -37,9 +60,5 @@ public class ProductPage {
         cart.hover();
         Thread.sleep(2000); // TODO убрать слип, заменить на ожидание
         cart.click();
-    }
-
-    public String getPriceOnProductPage() {
-        return price.getOwnText().replaceAll("[^\\d]", "");
     }
 }
